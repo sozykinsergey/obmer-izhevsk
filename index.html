@@ -13,7 +13,15 @@
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+      line-height:1.65;
+      overflow-y:auto !important;
+      height:auto !important;
+    }
     a{text-decoration:none;color:inherit}
     .hero{
       min-height:820px;display:flex;align-items:center;position:relative;overflow:hidden;
@@ -55,385 +63,68 @@
     .contact{display:grid;grid-template-columns:1.2fr .8fr;gap:1px;background:var(--line)}
     .contactbox{padding:42px;background:var(--card)}
     .phone{font-family:Georgia,serif;font-size:clamp(32px,4vw,48px);font-weight:500;letter-spacing:-.03em;margin:12px 0 22px}
-
-    /* Стили для портфолио */
     .portfolio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:42px}
-    .portfolio-item{
-      background:var(--card);
-      border:1px solid var(--line);
-      box-shadow:0 12px 30px rgba(25,25,25,.05);
-      overflow:hidden;
-      border-radius:6px;
-      cursor:pointer;
-      position:relative;
-      padding:15px;
-      transition:transform .3s ease, box-shadow .3s ease;
-      display:flex;
-      flex-direction:column;
-    }
-    .portfolio-item:hover{
-      transform:translateY(-5px);
-      box-shadow:0 18px 40px rgba(25,25,25,.12);
-    }
-    .portfolio-item img{
-      width:100%;
-      height:300px;
-      object-fit:cover;
-      background:#f9f7f2;
-      border-radius:4px;
-      display:block;
-      transition:transform .3s ease;
-      box-shadow:0 4px 12px rgba(0,0,0,.1);
-    }
-    .portfolio-item img.fit-contain{
-      object-fit:contain;
-      padding:10px;
-    }
-    .portfolio-item:hover img{
-      transform:scale(1.02);
-    }
-    .portfolio-info{
-      padding:18px 10px 8px;
-      text-align:center;
-    }
-    .portfolio-info strong{
-      font-size:17px;
-      display:block;
-      margin-bottom:6px;
-    }
-    .portfolio-info p{
-      color:var(--muted);
-      margin:0;
-      font-size:14px;
-    }
-    
-    /* Индикатор увеличения */
-    .portfolio-item::after{
-      content:"🔍";
-      position:absolute;
-      top:28px;
-      right:28px;
-      font-size:18px;
-      background:rgba(0,0,0,.6);
-      color:#fff;
-      width:38px;
-      height:38px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:50%;
-      opacity:0;
-      transition:opacity .3s ease;
-      pointer-events:none;
-    }
-    .portfolio-item:hover::after{
-      opacity:1;
-    }
-    
-    /* Модальное окно */
-    .modal{
-      display:none;
-      position:fixed;
-      z-index:1000;
-      left:0;
-      top:0;
-      width:100%;
-      height:100%;
-      background-color:rgba(0,0,0,.95);
-      justify-content:center;
-      align-items:center;
-      animation:fadeIn .3s ease;
-    }
-    .modal.active{
-      display:flex;
-    }
-    .modal-content{
-      max-width:90%;
-      max-height:90%;
-      object-fit:contain;
-      border-radius:4px;
-      box-shadow:0 0 50px rgba(0,0,0,.5);
-      animation:zoomIn .3s ease;
-    }
-    .modal-close{
-      position:absolute;
-      top:20px;
-      right:35px;
-      color:#fff;
-      font-size:40px;
-      font-weight:bold;
-      cursor:pointer;
-      transition:color .2s;
-      z-index:1001;
-    }
-    .modal-close:hover{
-      color:var(--gold2);
-    }
-    .modal-caption{
-      position:absolute;
-      bottom:20px;
-      left:50%;
-      transform:translateX(-50%);
-      color:#fff;
-      font-size:16px;
-      text-align:center;
-      background:rgba(0,0,0,.7);
-      padding:10px 20px;
-      border-radius:4px;
-      max-width:90%;
-    }
-    
-    /* Кнопки навигации в модальном окне */
-    .modal-nav{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      background:rgba(255,255,255,.1);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.3);
-      width:50px;
-      height:50px;
-      border-radius:50%;
-      cursor:pointer;
-      font-size:24px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:all .2s;
-      z-index:1001;
-    }
-    .modal-nav:hover{
-      background:rgba(255,255,255,.2);
-      border-color:var(--gold2);
-    }
-    .modal-nav.hidden{
-      display:none;
-    }
-    .modal-prev{
-      left:20px;
-    }
-    .modal-next{
-      right:20px;
-    }
-    
-    /* Счетчик изображений */
-    .modal-counter{
-      position:absolute;
-      top:20px;
-      left:50%;
-      transform:translateX(-50%);
-      color:#fff;
-      font-size:14px;
-      background:rgba(0,0,0,.7);
-      padding:8px 16px;
-      border-radius:20px;
-      z-index:1001;
-    }
-    .modal-counter.hidden{
-      display:none;
-    }
-
-    /* Стили для цен */
-    .pricing-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:30px;
-      margin-top:42px;
-    }
-    .price-card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:6px;
-      padding:35px 30px;
-      text-align:center;
-      box-shadow:0 12px 30px rgba(25,25,25,.05);
-      transition:transform .3s ease, box-shadow .3s ease;
-    }
-    .price-card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 18px 40px rgba(25,25,25,.12);
-    }
-    .price-card strong{
-      font-size:20px;
-      display:block;
-      margin-bottom:15px;
-    }
-    .price-value{
-      font-family:Georgia,serif;
-      font-size:36px;
-      color:var(--gold);
-      margin-bottom:10px;
-    }
-    .price-card p{
-      color:var(--muted);
-      margin:0;
-      font-size:14px;
-    }
-
-    /* Стили для отзывов */
-    .reviews-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:30px;
-      margin-top:42px;
-    }
-    .review-card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:6px;
-      padding:30px;
-      box-shadow:0 12px 30px rgba(25,25,25,.05);
-    }
-    .stars{
-      color:var(--gold);
-      font-size:20px;
-      margin-bottom:15px;
-    }
-    .review-card p{
-      color:var(--muted);
-      font-size:15px;
-      margin-bottom:15px;
-    }
-    .review-card strong{
-      display:block;
-      font-size:16px;
-    }
-
-    /* Стили для формы */
-    .contact-form{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:6px;
-      padding:40px;
-      box-shadow:0 12px 30px rgba(25,25,25,.05);
-      max-width:600px;
-      margin:42px auto 0;
-    }
-    .form-group{
-      margin-bottom:20px;
-    }
-    .form-group label{
-      display:block;
-      margin-bottom:8px;
-      font-weight:600;
-      font-size:14px;
-    }
-    .form-group input,
-    .form-group textarea{
-      width:100%;
-      padding:12px 15px;
-      border:1px solid var(--line);
-      border-radius:4px;
-      font-size:16px;
-      font-family:inherit;
-      transition:border-color .2s;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus{
-      outline:none;
-      border-color:var(--gold);
-    }
-    .form-group textarea{
-      height:100px;
-      resize:vertical;
-    }
-
-    /* Стили для FAQ */
-    .faq-list{
-      margin-top:42px;
-      max-width:800px;
-    }
-    .faq-item{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:6px;
-      margin-bottom:15px;
-      overflow:hidden;
-    }
-    .faq-question{
-      padding:20px 25px;
-      cursor:pointer;
-      font-weight:600;
-      font-size:18px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      transition:background .2s;
-    }
-    .faq-question:hover{
-      background:#f9f7f2;
-    }
-    .faq-question::after{
-      content:"+";
-      font-size:24px;
-      color:var(--gold);
-      transition:transform .3s;
-    }
-    .faq-item.active .faq-question::after{
-      transform:rotate(45deg);
-    }
-    .faq-answer{
-      max-height:0;
-      overflow:hidden;
-      transition:max-height .3s ease;
-      padding:0 25px;
-    }
-    .faq-item.active .faq-answer{
-      max-height:200px;
-      padding:0 25px 20px;
-    }
-    .faq-answer p{
-      color:var(--muted);
-      margin:0;
-    }
-
-    /* Кнопки мессенджеров */
-    .messenger-buttons{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      z-index:999;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .messenger-btn{
-      width:60px;
-      height:60px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:30px;
-      box-shadow:0 4px 15px rgba(0,0,0,.3);
-      transition:transform .2s;
-    }
-    .messenger-btn:hover{
-      transform:scale(1.1);
-    }
-    .whatsapp-btn{
-      background:var(--whatsapp);
-      color:#fff;
-    }
-    .telegram-btn{
-      background:var(--telegram);
-      color:#fff;
-    }
-    
-    @keyframes fadeIn{
-      from{opacity:0}
-      to{opacity:1}
-    }
-    @keyframes zoomIn{
-      from{transform:scale(.8);opacity:0}
-      to{transform:scale(1);opacity:1}
-    }
-    
+    .portfolio-item{background:var(--card);border:1px solid var(--line);box-shadow:0 12px 30px rgba(25,25,25,.05);overflow:hidden;border-radius:6px;cursor:pointer;position:relative;padding:15px;transition:transform .3s ease, box-shadow .3s ease;display:flex;flex-direction:column}
+    .portfolio-item:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(25,25,25,.12)}
+    .portfolio-item img{width:100%;height:300px;object-fit:cover;background:#f9f7f2;border-radius:4px;display:block;transition:transform .3s ease;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+    .portfolio-item img.fit-contain{object-fit:contain;padding:10px}
+    .portfolio-item:hover img{transform:scale(1.02)}
+    .portfolio-info{padding:18px 10px 8px;text-align:center}
+    .portfolio-info strong{font-size:17px;display:block;margin-bottom:6px}
+    .portfolio-info p{color:var(--muted);margin:0;font-size:14px}
+    .portfolio-item::after{content:"🔍";position:absolute;top:28px;right:28px;font-size:18px;background:rgba(0,0,0,.6);color:#fff;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;opacity:0;transition:opacity .3s ease;pointer-events:none}
+    .portfolio-item:hover::after{opacity:1}
+    .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,.95);justify-content:center;align-items:center;animation:fadeIn .3s ease;overflow-y:auto}
+    .modal.active{display:flex}
+    .modal-content{max-width:90%;max-height:90%;object-fit:contain;border-radius:4px;box-shadow:0 0 50px rgba(0,0,0,.5);animation:zoomIn .3s ease}
+    .modal-close{position:absolute;top:20px;right:35px;color:#fff;font-size:40px;font-weight:bold;cursor:pointer;transition:color .2s;z-index:1001}
+    .modal-close:hover{color:var(--gold2)}
+    .modal-caption{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:16px;text-align:center;background:rgba(0,0,0,.7);padding:10px 20px;border-radius:4px;max-width:90%}
+    .modal-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3);width:50px;height:50px;border-radius:50%;cursor:pointer;font-size:24px;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1001}
+    .modal-nav:hover{background:rgba(255,255,255,.2);border-color:var(--gold2)}
+    .modal-nav.hidden{display:none}
+    .modal-prev{left:20px}
+    .modal-next{right:20px}
+    .modal-counter{position:absolute;top:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:14px;background:rgba(0,0,0,.7);padding:8px 16px;border-radius:20px;z-index:1001}
+    .modal-counter.hidden{display:none}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:42px}
+    .price-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:35px 30px;text-align:center;box-shadow:0 12px 30px rgba(25,25,25,.05);transition:transform .3s ease, box-shadow .3s ease}
+    .price-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(25,25,25,.12)}
+    .price-card strong{font-size:20px;display:block;margin-bottom:15px}
+    .price-value{font-family:Georgia,serif;font-size:36px;color:var(--gold);margin-bottom:10px}
+    .price-card p{color:var(--muted);margin:0;font-size:14px}
+    .reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:42px}
+    .review-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:30px;box-shadow:0 12px 30px rgba(25,25,25,.05)}
+    .stars{color:var(--gold);font-size:20px;margin-bottom:15px}
+    .review-card p{color:var(--muted);font-size:15px;margin-bottom:15px}
+    .review-card strong{display:block;font-size:16px}
+    .contact-form{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:40px;box-shadow:0 12px 30px rgba(25,25,25,.05);max-width:600px;margin:42px auto 0}
+    .form-group{margin-bottom:20px}
+    .form-group label{display:block;margin-bottom:8px;font-weight:600;font-size:14px}
+    .form-group input,.form-group textarea{width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:4px;font-size:16px;font-family:inherit;transition:border-color .2s}
+    .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
+    .form-group textarea{height:100px;resize:vertical}
+    .faq-list{margin-top:42px;max-width:800px}
+    .faq-item{background:var(--card);border:1px solid var(--line);border-radius:6px;margin-bottom:15px;overflow:hidden}
+    .faq-question{padding:20px 25px;cursor:pointer;font-weight:600;font-size:18px;display:flex;justify-content:space-between;align-items:center;transition:background .2s}
+    .faq-question:hover{background:#f9f7f2}
+    .faq-question::after{content:"+";font-size:24px;color:var(--gold);transition:transform .3s}
+    .faq-item.active .faq-question::after{transform:rotate(45deg)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 25px}
+    .faq-item.active .faq-answer{max-height:200px;padding:0 25px 20px}
+    .faq-answer p{color:var(--muted);margin:0}
+    .messenger-buttons{position:fixed;right:20px;bottom:20px;z-index:999;display:flex;flex-direction:column;gap:10px}
+    .messenger-btn{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 4px 15px rgba(0,0,0,.3);transition:transform .2s}
+    .messenger-btn:hover{transform:scale(1.1)}
+    .whatsapp-btn{background:var(--whatsapp);color:#fff}
+    .telegram-btn{background:var(--telegram);color:#fff}
+    footer{padding:30px 0;text-align:center;color:var(--muted)}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes zoomIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
     @media(max-width:1024px){
       .portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .pricing-grid,.reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
-    
     @media(max-width:760px){
       .hero{min-height:760px}.topline{top:20px}.top-phone{display:none}
       .grid,.contact,.portfolio-grid,.pricing-grid,.reviews-grid{grid-template-columns:1fr}
@@ -470,23 +161,188 @@
   </header>
 
   <main>
-    <!-- Все секции (what, pricing, portfolio, reviews, dark, faq, result, contact-form, contact) -->
-    <!-- ... (остальной HTML-код секций без изменений) ... -->
+    <section class="section" id="what">
+      <div class="wrap">
+        <div class="eyebrow">Что вы получите</div>
+        <h2>Полная картина помещения в одном чертеже</h2>
+        <p class="sub">Все ключевые размеры и элементы, которые нужны для планировки, дизайна и уверенного старта ремонта.</p>
+        <div class="grid">
+          <article class="card"><div class="icon">📏</div><strong>Точный чертеж с размерами</strong>Электронная и бумажная версия. По желанию — 3D-модель помещения за отдельную плату.</article>
+          <article class="card"><div class="icon">🚪</div><strong>Все важные габариты</strong>Комнаты, дверные и оконные проемы, высоты потолков, расположение коммуникаций и радиаторов.</article>
+          <article class="card"><div class="icon">⚡</div><strong>Видимая электрика</strong>Зафиксирую расположение видимых розеток, выключателей и других элементов, которые важно учитывать.</article>
+          <article class="card"><div class="icon">💡</div><strong>Консультация по планировке</strong>Подскажу, какие размеры и особенности помещения стоит учесть при дальнейшей планировке.</article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing" style="padding-top: 20px;">
+      <div class="wrap">
+        <div class="eyebrow">Стоимость</div>
+        <h2>Прозрачные цены на обмер</h2>
+        <p class="sub">Точная стоимость зависит от площади и сложности помещения. Ниже ориентировочные цены.</p>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <strong>Квартира до 50 м²</strong>
+            <div class="price-value">от 3 000 ₽</div>
+            <p>Обмерный план за 24 часа</p>
+          </div>
+          <div class="price-card">
+            <strong>Квартира 50-100 м²</strong>
+            <div class="price-value">от 5 000 ₽</div>
+            <p>Обмерный план за 24 часа</p>
+          </div>
+          <div class="price-card">
+            <strong>Дом / Офис</strong>
+            <div class="price-value">от 7 000 ₽</div>
+            <p>Индивидуальный расчет</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="portfolio" style="padding-top: 20px;">
+      <div class="wrap">
+        <div class="eyebrow">Мои работы</div>
+        <h2>Примеры обмерных планов</h2>
+        <p class="sub">Ниже представлены реальные чертежи, подготовленные для моих клиентов. <strong>Нажмите на изображение для увеличения.</strong></p>
+        <div class="portfolio-grid">
+          <article class="portfolio-item" onclick="openModal(0)">
+            <img src="ЖК Леонов.jpg" alt="Обмерный план двухкомнатной квартиры" loading="lazy">
+            <div class="portfolio-info"><strong>Двухкомнатная квартира</strong><p>Подготовка к ремонту</p></div>
+          </article>
+          <article class="portfolio-item" onclick="openModal(1)">
+            <img src="ЖК Знак.jpg" alt="Обмерный план однокомнатной квартиры" loading="lazy">
+            <div class="portfolio-info"><strong>Однокомнатная квартира</strong><p>Подготовка к ремонту</p></div>
+          </article>
+          <article class="portfolio-item" onclick="openModal(2)">
+            <img src="KOMPAS - Фрагмен-1-1.jpg" alt="Обмерный план подвального помещения" loading="lazy">
+            <div class="portfolio-info"><strong>Подвальное помещение</strong><p>Полный обмер • 3 листа</p></div>
+          </article>
+          <article class="portfolio-item" onclick="openModal(3)">
+            <img src="KOMPAS - Замер-1-1.jpg" alt="Обмерный план помещения под игровой клуб" loading="lazy">
+            <div class="portfolio-info"><strong>Игровой клуб</strong><p>Полный обмер • 5 листов</p></div>
+          </article>
+          <article class="portfolio-item" onclick="openModal(4)">
+            <img src="ЖК Знак ванны.jpg" alt="Обмерный план двух ванных комнат" loading="lazy" class="fit-contain">
+            <div class="portfolio-info"><strong>Две ванные комнаты</strong><p>Подготовка к ремонту</p></div>
+          </article>
+          <article class="portfolio-item" onclick="openModal(5)">
+            <img src="Ванная комната.jpg" alt="Обмерный план ванной комнаты" loading="lazy" class="fit-contain">
+            <div class="portfolio-info"><strong>Ванная комната</strong><p>Подготовка к ремонту</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews" style="padding-top: 20px;">
+      <div class="wrap">
+        <div class="eyebrow">Отзывы</div>
+        <h2>Что говорят клиенты</h2>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>"Нужен был замер помещения в ближайшее время. Очень быстро и оперативно ответил. Замер выполнил качественно! По окончании работ предоставил план помещения со всеми точными размерами. Услугой доволен, рекомендую!"</p>
+            <strong>Максим, ЖК Знак</strong>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>"Нужен был замер квартиры, списались и на следующий день уже встретились на объекте, утром план был готов. Советую обратиться к Сергею!"</p>
+            <strong>Расул, ЖК Леонов</strong>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>"Мне нужно было сделать обмерный план квартиры для дизайн проекта. Все выполнено в обещанные сроки. Я довольна!"</p>
+            <strong>Евгения, ЖК Знак</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="wrap">
+        <div class="eyebrow">Почему я</div>
+        <h2>Быстро, точно и без лишней суеты</h2>
+        <div class="steps">
+          <div class="step"><div class="num">01</div><strong>Современное оборудование</strong><p>Использую лазерный дальномер для точных измерений.</p></div>
+          <div class="step"><div class="num">02</div><strong>Выезд в день обращения</strong><p>По возможности организую замер уже в день обращения.</p></div>
+          <div class="step"><div class="num">03</div><strong>Готовый чертеж за сутки</strong><p>Для объектов до 100 м² — готовый обмерочный план в течение 24 часов.</p></div>
+          <div class="step"><div class="num">04</div><strong>Доступная цена</strong><p>Для больших площадей предусмотрена скидка.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" style="padding-top: 20px;">
+      <div class="wrap">
+        <div class="eyebrow">FAQ</div>
+        <h2>Частые вопросы</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">Сколько длится обмер?</div>
+            <div class="faq-answer"><p>Обычно 1-2 часа для квартиры до 100 м².</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">Что нужно подготовить к обмеру?</div>
+            <div class="faq-answer"><p>Достаточно обеспечить доступ во все помещения.</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">В каком виде я получу чертеж?</div>
+            <div class="faq-answer"><p>Вы получите электронную версию в формате PDF или DWG.</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">Можно ли заказать обмер в выходные?</div>
+            <div class="faq-answer"><p>Да, работаю и в выходные дни по договоренности.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact-form" style="padding-top: 20px;">
+      <div class="wrap">
+        <div class="eyebrow">Заказать обмер</div>
+        <h2>Оставьте заявку</h2>
+        <form class="contact-form" onsubmit="sendForm(event)">
+          <div class="form-group">
+            <label for="name">Ваше имя *</label>
+            <input type="text" id="name" name="name" required placeholder="Иван">
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 000-00-00">
+          </div>
+          <div class="form-group">
+            <label for="message">Описание помещения</label>
+            <textarea id="message" name="message" placeholder="Например: двухкомнатная квартира 60 м², ЖК Леонов"></textarea>
+          </div>
+          <button type="submit" class="btn btn-main" style="width:100%">Отправить заявку</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:20px">
+      <div class="wrap contact">
+        <div class="contactbox">
+          <div class="eyebrow">Связаться</div>
+          <h2>Сергей</h2>
+          <p class="sub">Замер помещений и подготовка обмерных планов в Ижевске.</p>
+          <div class="phone"><a href="tel:+79992280157">8 999 228-01-57</a></div>
+          <a class="btn btn-main" href="tel:+79992280157">Позвонить сейчас</a>
+        </div>
+        <div class="contactbox">
+          <div class="eyebrow">Идеально для</div>
+          <h2 style="font-size:30px">Ремонта без сюрпризов</h2>
+          <p class="sub">Квартира · Дом · Офис<br><br>Обмерочный план — для дизайнера, прораба или самостоятельного ремонта.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Кнопки мессенджеров -->
   <div class="messenger-buttons">
-    <a href="https://wa.me/79992280157" target="_blank" class="messenger-btn whatsapp-btn" title="Написать в WhatsApp">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
-    <a href="https://t.me/+79992280157" target="_blank" class="messenger-btn telegram-btn" title="Написать в Telegram">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-    </a>
+    <a href="https://wa.me/79992280157" target="_blank" class="messenger-btn whatsapp-btn" title="Написать в WhatsApp">💬</a>
+    <a href="https://t.me/+79992280157" target="_blank" class="messenger-btn telegram-btn" title="Написать в Telegram">✈️</a>
   </div>
 
   <footer><div class="wrap">© 2026 Сергей • Замер помещений и обмерный план в Ижевске</div></footer>
 
-  <!-- Модальное окно для просмотра изображений -->
   <div id="imageModal" class="modal">
     <span class="modal-close" onclick="closeModal()">&times;</span>
     <div class="modal-counter" id="modalCounter">1 / 3</div>
@@ -497,142 +353,80 @@
   </div>
 
   <script>
-    // Массив с данными о проектах
     const projects = [
-      {
-        images: ['ЖК Леонов.jpg'],
-        captions: ['Обмерный план — Двухкомнатная квартира • Подготовка к ремонту']
-      },
-      {
-        images: ['ЖК Знак.jpg'],
-        captions: ['Обмерный план — Однокомнатная квартира • Подготовка к ремонту']
-      },
-      {
-        images: ['KOMPAS - Фрагмен-1-1.jpg', 'KOMPAS - Фрагмен-2-1.jpg', 'KOMPAS - Фрагмен-3-1.jpg'],
-        captions: [
-          'Обмерный план — Подвальное помещение • Лист 1 из 3',
-          'Обмерный план — Подвальное помещение • Лист 2 из 3',
-          'Обмерный план — Подвальное помещение • Лист 3 из 3'
-        ]
-      },
-      {
-        images: ['KOMPAS - Замер-1-1.jpg', 'KOMPAS - Замер-2-1.jpg', 'KOMPAS - Замер-3-1.jpg', 'KOMPAS - Замер-4-1.jpg', 'KOMPAS - Замер-5-1.jpg'],
-        captions: [
-          'Обмерный план помещения под игровой клуб • Лист 1 из 5',
-          'Обмерный план помещения под игровой клуб • Лист 2 из 5',
-          'Обмерный план помещения под игровой клуб • Лист 3 из 5',
-          'Обмерный план помещения под игровой клуб • Лист 4 из 5',
-          'Обмерный план помещения под игровой клуб • Лист 5 из 5'
-        ]
-      },
-      {
-        images: ['ЖК Знак ванны.jpg'],
-        captions: ['Обмерный план двух ванных комнат • Подготовка к ремонту']
-      },
-      {
-        images: ['Ванная комната.jpg'],
-        captions: ['Обмерный план ванной комнаты • Подготовка к ремонту']
-      }
+      { images: ['ЖК Леонов.jpg'], captions: ['Обмерный план — Двухкомнатная квартира'] },
+      { images: ['ЖК Знак.jpg'], captions: ['Обмерный план — Однокомнатная квартира'] },
+      { images: ['KOMPAS - Фрагмен-1-1.jpg', 'KOMPAS - Фрагмен-2-1.jpg', 'KOMPAS - Фрагмен-3-1.jpg'], captions: ['Лист 1 из 3', 'Лист 2 из 3', 'Лист 3 из 3'] },
+      { images: ['KOMPAS - Замер-1-1.jpg', 'KOMPAS - Замер-2-1.jpg', 'KOMPAS - Замер-3-1.jpg', 'KOMPAS - Замер-4-1.jpg', 'KOMPAS - Замер-5-1.jpg'], captions: ['Лист 1 из 5', 'Лист 2 из 5', 'Лист 3 из 5', 'Лист 4 из 5', 'Лист 5 из 5'] },
+      { images: ['ЖК Знак ванны.jpg'], captions: ['Обмерный план двух ванных комнат'] },
+      { images: ['Ванная комната.jpg'], captions: ['Обмерный план ванной комнаты'] }
     ];
     
     let currentProject = 0;
     let currentImage = 0;
     
-    // Функция открытия модального окна
     function openModal(projectIndex) {
       currentProject = projectIndex;
       currentImage = 0;
-      
-      const modal = document.getElementById('imageModal');
-      
-      modal.classList.add('active');
+      document.getElementById('imageModal').classList.add('active');
       updateModalContent();
-      
       document.body.style.overflow = 'hidden';
     }
     
-    // Функция обновления содержимого модального окна
     function updateModalContent() {
-      const modalImg = document.getElementById('modalImage');
-      const modalCaption = document.getElementById('modalCaption');
-      const modalCounter = document.getElementById('modalCounter');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      
       const project = projects[currentProject];
       const totalImages = project.images.length;
-      
-      modalImg.src = project.images[currentImage];
-      modalCaption.textContent = project.captions[currentImage];
-      
+      document.getElementById('modalImage').src = project.images[currentImage];
+      document.getElementById('modalCaption').textContent = project.captions[currentImage];
+      const counter = document.getElementById('modalCounter');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
       if (totalImages > 1) {
-        modalCounter.textContent = `${currentImage + 1} / ${totalImages}`;
-        modalCounter.classList.remove('hidden');
+        counter.textContent = `${currentImage + 1} / ${totalImages}`;
+        counter.classList.remove('hidden');
         prevBtn.classList.remove('hidden');
         nextBtn.classList.remove('hidden');
       } else {
-        modalCounter.classList.add('hidden');
+        counter.classList.add('hidden');
         prevBtn.classList.add('hidden');
         nextBtn.classList.add('hidden');
       }
     }
     
-    // Функция перелистывания изображений
     function changeImage(direction) {
       const project = projects[currentProject];
       if (project.images.length <= 1) return;
-      
       currentImage = (currentImage + direction + project.images.length) % project.images.length;
       updateModalContent();
     }
     
-    // Функция закрытия модального окна
     function closeModal() {
-      const modal = document.getElementById('imageModal');
-      modal.classList.remove('active');
-      document.body.style.overflow = 'auto';
+      document.getElementById('imageModal').classList.remove('active');
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     }
     
-    // Закрытие модального окна по клику на фон
     document.getElementById('imageModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeModal();
-      }
+      if (e.target === this) closeModal();
     });
     
-    // Закрытие по Escape и перелистывание стрелками
     document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeModal();
-      }
-      if (event.key === 'ArrowLeft') {
-        changeImage(-1);
-      }
-      if (event.key === 'ArrowRight') {
-        changeImage(1);
-      }
+      const modal = document.getElementById('imageModal');
+      if (!modal.classList.contains('active')) return;
+      if (event.key === 'Escape') closeModal();
+      if (event.key === 'ArrowLeft') changeImage(-1);
+      if (event.key === 'ArrowRight') changeImage(1);
     });
-
-    // Функция для FAQ
+    
     function toggleFAQ(element) {
-      const faqItem = element.parentElement;
-      faqItem.classList.toggle('active');
+      element.parentElement.classList.toggle('active');
     }
-
-    // Функция отправки формы
+    
     function sendForm(event) {
       event.preventDefault();
-      
       const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      const message = document.getElementById('message').value;
-      
-      // Здесь можно добавить отправку на email или в Telegram
-      // Например: window.location.href = `mailto:your@email.com?subject=Заявка с сайта&body=Имя: ${name}%0AТелефон: ${phone}%0AОписание: ${message}`;
-      
       alert(`Спасибо, ${name}! Я перезвоню вам в ближайшее время.`);
-      
-      // Очистка формы
       event.target.reset();
     }
   </script>
