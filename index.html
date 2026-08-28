@@ -437,10 +437,43 @@
     }
     
     function sendForm(event) {
-      event.preventDefault();
-      const name = document.getElementById('name').value;
-      alert(`Спасибо, ${name}! Я перезвоню вам в ближайшее время.`);
+  event.preventDefault();
+  
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const message = document.getElementById('message').value;
+  
+  // ЗАМЕНИТЕ НА ВАШИ ДАННЫЕ:
+  const botToken = '8738584771:AAHaft35Wp6vaHg6tC9I8Sa4XNWr9aJGo98'; // Токен от BotFather
+  const chatId = '1209006079'; // Ваш Chat ID
+  
+  // Формируем текст сообщения
+  const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n📝 Описание: ${message || 'Не указано'}`;
+  
+  // Отправляем в Telegram
+  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: text,
+      parse_mode: 'HTML'
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.ok) {
+      alert(`Спасибо, ${name}! Я получил вашу заявку и скоро свяжусь с вами.`);
       event.target.reset();
+    } else {
+      alert('Произошла ошибка. Пожалуйста, позвоните по телефону: 8 999 228-01-57');
+    }
+  })
+  .catch(error => {
+    alert('Произошла ошибка. Пожалуйста, позвоните по телефону: 8 999 228-01-57');
+  });
     }
   </script>
 </body>
