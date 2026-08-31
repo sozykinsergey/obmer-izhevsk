@@ -448,40 +448,36 @@
       const phone = document.getElementById('phone').value.trim();
       const message = document.getElementById('message').value.trim();
       
-      const botToken = '8738584771:AAHaft35Wp6vaHg6tC9I8Sa4XNWr9aJGo98';
-      const chatId = '1209006079';
+      console.log('📤 Отправка заявки...');
       
-      const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n📝 Описание: ${message || 'Не указано'}\n🕐 Время: ${new Date().toLocaleString('ru-RU')}`;
-      
-      console.log('📤 Отправка заявки в Telegram...');
-      
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      fetch('https://formspree.io/f/xbgjdypq', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
-          chat_id: chatId,
-          text: text
+          name: name,
+          phone: phone,
+          message: message || 'Не указано',
+          _subject: `🔔 Новая заявка с сайта от ${name}`
         })
       })
       .then(response => {
-        console.log('📡 Статус ответа:', response.status);
+        console.log('📡 Статус:', response.status);
         return response.json();
       })
       .then(data => {
-        console.log('📥 Ответ Telegram:', data);
-        
+        console.log('📥 Ответ:', data);
         if (data.ok) {
           alert(`✅ Спасибо, ${name}! Я получил вашу заявку и скоро свяжусь с вами.`);
           event.target.reset();
         } else {
-          console.error('❌ Ошибка Telegram:', data.description);
           alert('❌ Ошибка отправки. Позвоните: 8 999 228-01-57');
         }
       })
       .catch(error => {
-        console.error('❌ Ошибка сети:', error);
+        console.error('❌ Ошибка:', error);
         alert('❌ Ошибка сети. Позвоните: 8 999 228-01-57');
       });
     }
