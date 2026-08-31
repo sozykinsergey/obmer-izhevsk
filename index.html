@@ -142,19 +142,24 @@
       h1{font-size:49px}.hero{min-height:720px}
     }
   </style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112001458', 'ym');
+  
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+     m[i].l=1*new Date();
+     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-    ym(112001458, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/112001458" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+     ym(112001458, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+     });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112001458" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </head>
 <body>
   <header class="hero">
@@ -437,43 +442,48 @@
     }
     
     function sendForm(event) {
-  event.preventDefault();
-  
-  const name = document.getElementById('name').value;
-  const phone = document.getElementById('phone').value;
-  const message = document.getElementById('message').value;
-  
-  // ЗАМЕНИТЕ НА ВАШИ ДАННЫЕ:
-  const botToken = '8738584771:AAHaft35Wp6vaHg6tC9I8Sa4XNWr9aJGo98'; // Токен от BotFather
-  const chatId = '1209006079'; // Ваш Chat ID
-  
-  // Формируем текст сообщения
-  const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n📝 Описание: ${message || 'Не указано'}`;
-  
-  // Отправляем в Telegram
-  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: text,
-      parse_mode: 'HTML'
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.ok) {
-      alert(`Спасибо, ${name}! Я получил вашу заявку и скоро свяжусь с вами.`);
-      event.target.reset();
-    } else {
-      alert('Произошла ошибка. Пожалуйста, позвоните по телефону: 8 999 228-01-57');
-    }
-  })
-  .catch(error => {
-    alert('Произошла ошибка. Пожалуйста, позвоните по телефону: 8 999 228-01-57');
-  });
+      event.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      
+      const botToken = '8738584771:AAHaft35Wp6vaHg6tC9I8Sa4XNWr9aJGo98';
+      const chatId = '1209006079';
+      
+      const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n📝 Описание: ${message || 'Не указано'}\n🕐 Время: ${new Date().toLocaleString('ru-RU')}`;
+      
+      console.log('📤 Отправка заявки в Telegram...');
+      
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: text
+        })
+      })
+      .then(response => {
+        console.log('📡 Статус ответа:', response.status);
+        return response.json();
+      })
+      .then(data => {
+        console.log('📥 Ответ Telegram:', data);
+        
+        if (data.ok) {
+          alert(`✅ Спасибо, ${name}! Я получил вашу заявку и скоро свяжусь с вами.`);
+          event.target.reset();
+        } else {
+          console.error('❌ Ошибка Telegram:', data.description);
+          alert('❌ Ошибка отправки. Позвоните: 8 999 228-01-57');
+        }
+      })
+      .catch(error => {
+        console.error('❌ Ошибка сети:', error);
+        alert('❌ Ошибка сети. Позвоните: 8 999 228-01-57');
+      });
     }
   </script>
 </body>
