@@ -5,16 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Сергей — Профессиональный обмер помещений в Ижевске</title>
   <meta name="description" content="Профессиональный обмер квартир, домов и офисов в Ижевске. Точный обмерный план, размеры проемов, высоты, коммуникации и консультация по планировке.">
+  
+  <!-- Предзагрузка подключений -->
+  <link rel="preconnect" href="https://mc.yandex.ru">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="dns-prefetch" href="https://mc.yandex.ru">
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+  <link rel="dns-prefetch" href="https://formspree.io">
+  
   <style>
     :root{
       --bg:#f4f1eb; --ink:#1a1a1a; --muted:#5f5b55; --gold:#b8955a;
       --gold2:#d0b27a; --dark:#151515; --card:#fffdf9; --line:#e6e0d5;
       --max:#8B5CF6; --telegram:#0088cc;
     }
-    *{box-sizing:border-box}
+    *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      margin:0;
       font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--ink);
       background:var(--bg);
@@ -23,143 +30,171 @@
       height:auto !important;
     }
     a{text-decoration:none;color:inherit}
+    img{max-width:100%;height:auto}
+    
     .hero{
-      min-height:820px;display:flex;align-items:center;position:relative;overflow:hidden;
+      min-height:820px;
+      display:flex;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
       background:
         linear-gradient(90deg,rgba(11,11,10,.93) 0%,rgba(11,11,10,.76) 48%,rgba(11,11,10,.18) 100%),
-        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2200&q=90") center/cover;
+        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=60") center/cover;
     }
     .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.18),transparent 55%,rgba(0,0,0,.45))}
     .hero:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:100px;background:linear-gradient(transparent,var(--bg))}
+    
     .wrap{width:min(1140px,90%);margin:auto;position:relative;z-index:2}
     .topline{position:absolute;top:30px;left:5%;right:5%;z-index:3;display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
     .brand{font-weight:800;letter-spacing:.18em}.top-phone{opacity:.85}
     .badge{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border:1px solid rgba(208,178,122,.55);border-radius:999px;background:rgba(20,20,18,.32);color:#ead6ad;font-size:12px;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(10px)}
+    
     h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(48px,7vw,88px);line-height:1.01;letter-spacing:-.045em;color:#fff;max-width:880px;margin:25px 0 24px}
     .lead{font-size:clamp(18px,2vw,22px);color:#e7e4dc;max-width:690px}
     .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+    
     .btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 24px;border-radius:4px;font-weight:700;letter-spacing:.01em;transition:.2s;cursor:pointer}
     .btn-main{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#16130e;box-shadow:0 12px 30px rgba(0,0,0,.2);border:none}
     .btn-main:hover{transform:translateY(-2px);box-shadow:0 16px 35px rgba(0,0,0,.25)}
     .btn-light{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.35);color:#fff;backdrop-filter:blur(10px)}
-    .section{padding:100px 0}
+    
+    .section{padding:80px 0}
     .eyebrow{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:11px}
-    h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(36px,4.5vw,56px);line-height:1.08;letter-spacing:-.035em;margin:10px 0 16px}
-    .sub{color:var(--muted);max-width:720px;font-size:18px}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:42px;background:var(--line);border:1px solid var(--line)}
-    .card{background:var(--card);padding:34px 30px;min-height:205px;position:relative}
+    h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(32px,4.5vw,48px);line-height:1.08;letter-spacing:-.035em;margin:10px 0 16px}
+    .sub{color:var(--muted);max-width:720px;font-size:17px}
+    
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:40px;background:var(--line);border:1px solid var(--line)}
+    .card{background:var(--card);padding:30px 25px;min-height:180px;position:relative}
     .card:before{content:"";position:absolute;left:0;top:0;width:45px;height:2px;background:var(--gold)}
-    .icon{font-size:25px;margin-bottom:18px;filter:grayscale(.2)}
-    .card strong{display:block;font-size:20px;margin-bottom:8px;font-weight:700}
+    .icon{font-size:22px;margin-bottom:15px}
+    .card strong{display:block;font-size:18px;margin-bottom:8px;font-weight:700}
+    
     .dark{background:var(--dark);color:#fff;position:relative;overflow:hidden}
-    .dark:before{content:"";position:absolute;width:480px;height:480px;border:1px solid rgba(184,149,90,.16);border-radius:50%;right:-170px;top:-190px}
+    .dark:before{content:"";position:absolute;width:400px;height:400px;border:1px solid rgba(184,149,90,.16);border-radius:50%;right:-150px;top:-150px}
     .dark .sub{color:#bcb8b0}.dark .eyebrow{color:var(--gold2)}
-    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:44px;background:rgba(255,255,255,.1)}
-    .step{padding:28px 23px;background:#1a1a1a;min-height:205px}
-    .step strong{display:block;font-size:18px;margin:15px 0 7px}.step p{color:#aaa69f;margin:0;font-size:15px}
-    .num{font-family:Georgia,serif;font-size:30px;color:var(--gold2)}
-    .price{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:34px 36px;border:1px solid var(--line);background:var(--card);margin-top:38px;box-shadow:0 15px 45px rgba(25,25,25,.06)}
-    .price b{font-family:Georgia,serif;font-size:24px;font-weight:500}
+    
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:40px;background:rgba(255,255,255,.1)}
+    .step{padding:25px 20px;background:#1a1a1a;min-height:180px}
+    .step strong{display:block;font-size:17px;margin:12px 0 7px}.step p{color:#aaa69f;margin:0;font-size:14px}
+    .num{font-family:Georgia,serif;font-size:28px;color:var(--gold2)}
+    
+    .price{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:30px;border:1px solid var(--line);background:var(--card);margin-top:35px;box-shadow:0 15px 45px rgba(25,25,25,.06)}
+    .price b{font-family:Georgia,serif;font-size:22px;font-weight:500}
+    
     .contact{display:grid;grid-template-columns:1.2fr .8fr;gap:1px;background:var(--line)}
-    .contactbox{padding:42px;background:var(--card)}
-    .phone{font-family:Georgia,serif;font-size:clamp(32px,4vw,48px);font-weight:500;letter-spacing:-.03em;margin:12px 0 22px}
-    .portfolio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:42px}
-    .portfolio-item{background:var(--card);border:1px solid var(--line);box-shadow:0 12px 30px rgba(25,25,25,.05);overflow:hidden;border-radius:6px;cursor:pointer;position:relative;padding:15px;transition:transform .3s ease, box-shadow .3s ease;display:flex;flex-direction:column}
-    .portfolio-item:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(25,25,25,.12)}
-    .portfolio-item img{width:100%;height:300px;object-fit:cover;background:#f9f7f2;border-radius:4px;display:block;transition:transform .3s ease;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+    .contactbox{padding:35px;background:var(--card)}
+    .phone{font-family:Georgia,serif;font-size:clamp(28px,4vw,42px);font-weight:500;letter-spacing:-.03em;margin:12px 0 20px}
+    
+    .portfolio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;margin-top:40px}
+    .portfolio-item{background:var(--card);border:1px solid var(--line);box-shadow:0 12px 30px rgba(25,25,25,.05);overflow:hidden;border-radius:6px;cursor:pointer;position:relative;padding:12px;transition:transform .3s ease;display:flex;flex-direction:column}
+    .portfolio-item:hover{transform:translateY(-5px)}
+    .portfolio-item img{width:100%;height:250px;object-fit:cover;background:#f9f7f2;border-radius:4px;display:block;transition:transform .3s ease}
     .portfolio-item img.fit-contain{object-fit:contain;padding:10px}
     .portfolio-item:hover img{transform:scale(1.02)}
-    .portfolio-info{padding:18px 10px 8px;text-align:center}
-    .portfolio-info strong{font-size:17px;display:block;margin-bottom:6px}
-    .portfolio-info p{color:var(--muted);margin:0;font-size:14px}
-    .portfolio-item::after{content:"🔍";position:absolute;top:28px;right:28px;font-size:18px;background:rgba(0,0,0,.6);color:#fff;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;opacity:0;transition:opacity .3s ease;pointer-events:none}
+    .portfolio-info{padding:15px 8px 5px;text-align:center}
+    .portfolio-info strong{font-size:16px;display:block;margin-bottom:5px}
+    .portfolio-info p{color:var(--muted);margin:0;font-size:13px}
+    .portfolio-item::after{content:"🔍";position:absolute;top:20px;right:20px;font-size:16px;background:rgba(0,0,0,.6);color:#fff;width:35px;height:35px;display:flex;align-items:center;justify-content:center;border-radius:50%;opacity:0;transition:opacity .3s ease;pointer-events:none}
     .portfolio-item:hover::after{opacity:1}
+    
     .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,.95);justify-content:center;align-items:center;animation:fadeIn .3s ease;overflow-y:auto}
     .modal.active{display:flex}
-    .modal-content{max-width:90%;max-height:90%;object-fit:contain;border-radius:4px;box-shadow:0 0 50px rgba(0,0,0,.5);animation:zoomIn .3s ease}
-    .modal-close{position:absolute;top:20px;right:35px;color:#fff;font-size:40px;font-weight:bold;cursor:pointer;transition:color .2s;z-index:1001}
+    .modal-content{max-width:90%;max-height:90%;object-fit:contain;border-radius:4px;animation:zoomIn .3s ease}
+    .modal-close{position:absolute;top:20px;right:30px;color:#fff;font-size:35px;font-weight:bold;cursor:pointer;z-index:1001}
     .modal-close:hover{color:var(--gold2)}
-    .modal-caption{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:16px;text-align:center;background:rgba(0,0,0,.7);padding:10px 20px;border-radius:4px;max-width:90%}
-    .modal-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3);width:50px;height:50px;border-radius:50%;cursor:pointer;font-size:24px;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1001}
+    .modal-caption{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:15px;text-align:center;background:rgba(0,0,0,.7);padding:10px 20px;border-radius:4px;max-width:90%}
+    .modal-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3);width:45px;height:45px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1001}
     .modal-nav:hover{background:rgba(255,255,255,.2);border-color:var(--gold2)}
     .modal-nav.hidden{display:none}
-    .modal-prev{left:20px}
-    .modal-next{right:20px}
-    .modal-counter{position:absolute;top:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:14px;background:rgba(0,0,0,.7);padding:8px 16px;border-radius:20px;z-index:1001}
+    .modal-prev{left:15px}
+    .modal-next{right:15px}
+    .modal-counter{position:absolute;top:15px;left:50%;transform:translateX(-50%);color:#fff;font-size:13px;background:rgba(0,0,0,.7);padding:6px 14px;border-radius:15px;z-index:1001}
     .modal-counter.hidden{display:none}
-    .pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:42px}
-    .price-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:35px 30px;text-align:center;box-shadow:0 12px 30px rgba(25,25,25,.05);transition:transform .3s ease, box-shadow .3s ease}
-    .price-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(25,25,25,.12)}
-    .price-card strong{font-size:20px;display:block;margin-bottom:15px}
-    .price-value{font-family:Georgia,serif;font-size:36px;color:var(--gold);margin-bottom:10px}
-    .price-card p{color:var(--muted);margin:0;font-size:14px}
-    .reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:42px}
-    .review-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:30px;box-shadow:0 12px 30px rgba(25,25,25,.05)}
-    .stars{color:var(--gold);font-size:20px;margin-bottom:15px}
-    .review-card p{color:var(--muted);font-size:15px;margin-bottom:15px}
-    .review-card strong{display:block;font-size:16px}
-    .contact-form{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:40px;box-shadow:0 12px 30px rgba(25,25,25,.05);max-width:600px;margin:42px auto 0}
-    .form-group{margin-bottom:20px}
-    .form-group label{display:block;margin-bottom:8px;font-weight:600;font-size:14px}
+    
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;margin-top:40px}
+    .price-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:30px 25px;text-align:center;box-shadow:0 12px 30px rgba(25,25,25,.05);transition:transform .3s ease}
+    .price-card:hover{transform:translateY(-5px)}
+    .price-card strong{font-size:18px;display:block;margin-bottom:12px}
+    .price-value{font-family:Georgia,serif;font-size:32px;color:var(--gold);margin-bottom:8px}
+    .price-card p{color:var(--muted);margin:0;font-size:13px}
+    
+    .reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;margin-top:40px}
+    .review-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:25px;box-shadow:0 12px 30px rgba(25,25,25,.05)}
+    .stars{color:var(--gold);font-size:18px;margin-bottom:12px}
+    .review-card p{color:var(--muted);font-size:14px;margin-bottom:12px}
+    .review-card strong{display:block;font-size:15px}
+    
+    .contact-form{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:35px;box-shadow:0 12px 30px rgba(25,25,25,.05);max-width:550px;margin:40px auto 0}
+    .form-group{margin-bottom:18px}
+    .form-group label{display:block;margin-bottom:6px;font-weight:600;font-size:14px}
     .form-group input,.form-group textarea{width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:4px;font-size:16px;font-family:inherit;transition:border-color .2s}
     .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
-    .form-group textarea{height:100px;resize:vertical}
-    .faq-list{margin-top:42px;max-width:800px}
-    .faq-item{background:var(--card);border:1px solid var(--line);border-radius:6px;margin-bottom:15px;overflow:hidden}
-    .faq-question{padding:20px 25px;cursor:pointer;font-weight:600;font-size:18px;display:flex;justify-content:space-between;align-items:center;transition:background .2s}
+    .form-group textarea{height:90px;resize:vertical}
+    
+    .faq-list{margin-top:40px;max-width:750px}
+    .faq-item{background:var(--card);border:1px solid var(--line);border-radius:6px;margin-bottom:12px;overflow:hidden}
+    .faq-question{padding:18px 22px;cursor:pointer;font-weight:600;font-size:16px;display:flex;justify-content:space-between;align-items:center;transition:background .2s}
     .faq-question:hover{background:#f9f7f2}
-    .faq-question::after{content:"+";font-size:24px;color:var(--gold);transition:transform .3s}
+    .faq-question::after{content:"+";font-size:22px;color:var(--gold);transition:transform .3s}
     .faq-item.active .faq-question::after{transform:rotate(45deg)}
-    .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 25px}
-    .faq-item.active .faq-answer{max-height:200px;padding:0 25px 20px}
-    .faq-answer p{color:var(--muted);margin:0}
-    .messenger-buttons{position:fixed;right:20px;bottom:20px;z-index:999;display:flex;flex-direction:column;gap:10px}
-    .messenger-btn{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:25px;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,.3);transition:transform .2s}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 22px}
+    .faq-item.active .faq-answer{max-height:150px;padding:0 22px 18px}
+    .faq-answer p{color:var(--muted);margin:0;font-size:15px}
+    
+    .messenger-buttons{position:fixed;right:15px;bottom:15px;z-index:999;display:flex;flex-direction:column;gap:8px}
+    .messenger-btn{width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,.3);transition:transform .2s}
     .messenger-btn:hover{transform:scale(1.1)}
     .max-btn{background:var(--max);color:#fff}
     .telegram-btn{background:var(--telegram);color:#fff}
-    footer{padding:30px 0;text-align:center;color:var(--muted)}
+    
+    footer{padding:25px 0;text-align:center;color:var(--muted);font-size:14px}
+    
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    @keyframes zoomIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+    @keyframes zoomIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+    
     @media(max-width:1024px){
       .portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .pricing-grid,.reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media(max-width:760px){
-      .hero{min-height:760px}.topline{top:20px}.top-phone{display:none}
+      .hero{min-height:700px}.topline{top:15px}.top-phone{display:none}
       .grid,.contact,.portfolio-grid,.pricing-grid,.reviews-grid{grid-template-columns:1fr}
       .steps{grid-template-columns:1fr 1fr}
-      .section{padding:72px 0}.price{align-items:flex-start;flex-direction:column;padding:28px}
-      .portfolio-item img{height:250px}
-      .modal-close{top:15px;right:20px;font-size:30px}
-      .modal-nav{width:40px;height:40px;font-size:20px}
-      .modal-prev{left:10px}
-      .modal-next{right:10px}
-      .contact-form{padding:25px}
+      .section{padding:60px 0}
+      .price{align-items:flex-start;flex-direction:column;padding:25px}
+      .portfolio-item img{height:220px}
+      .modal-close{top:10px;right:15px;font-size:28px}
+      .modal-nav{width:35px;height:35px;font-size:16px}
+      .modal-prev{left:8px}
+      .modal-next{right:8px}
+      .contact-form{padding:20px}
     }
     @media(max-width:480px){
       .steps{grid-template-columns:1fr}.actions .btn{width:100%}
-      h1{font-size:49px}.hero{min-height:720px}
+      h1{font-size:42px}.hero{min-height:650px}
     }
   </style>
   
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
-     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-     m[i].l=1*new Date();
-     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  <!-- Yandex.Metrika counter (отложенная загрузка) -->
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-     ym(112001458, "init", {
+        ym(112001458, "init", {
           clickmap:true,
           trackLinks:true,
           accurateTrackBounce:true,
           webvisor:true
-     });
+        });
+      }, 2000);
+    });
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/112001458" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-  <!-- /Yandex.Metrika counter -->
 </head>
 <body>
   <header class="hero">
@@ -222,30 +257,30 @@
       <div class="wrap">
         <div class="eyebrow">Мои работы</div>
         <h2>Примеры обмерных планов</h2>
-        <p class="sub">Ниже представлены реальные чертежи, подготовленные для моих клиентов. <strong>Нажмите на изображение для увеличения.</strong></p>
+        <p class="sub">Ниже представлены реальные чертежи. <strong>Нажмите на изображение для увеличения.</strong></p>
         <div class="portfolio-grid">
           <article class="portfolio-item" onclick="openModal(0)">
-            <img src="ЖК Леонов.jpg" alt="Обмерный план двухкомнатной квартиры" loading="lazy">
+            <img src="ЖК Леонов.jpg" alt="Обмерный план двухкомнатной квартиры" loading="lazy" width="400" height="250">
             <div class="portfolio-info"><strong>Двухкомнатная квартира</strong><p>Подготовка к ремонту</p></div>
           </article>
           <article class="portfolio-item" onclick="openModal(1)">
-            <img src="ЖК Знак.jpg" alt="Обмерный план однокомнатной квартиры" loading="lazy">
+            <img src="ЖК Знак.jpg" alt="Обмерный план однокомнатной квартиры" loading="lazy" width="400" height="250">
             <div class="portfolio-info"><strong>Однокомнатная квартира</strong><p>Подготовка к ремонту</p></div>
           </article>
           <article class="portfolio-item" onclick="openModal(2)">
-            <img src="KOMPAS - Фрагмен-1-1.jpg" alt="Обмерный план подвального помещения" loading="lazy">
+            <img src="KOMPAS - Фрагмен-1-1.jpg" alt="Обмерный план подвального помещения" loading="lazy" width="400" height="250">
             <div class="portfolio-info"><strong>Подвальное помещение</strong><p>Полный обмер • 3 листа</p></div>
           </article>
           <article class="portfolio-item" onclick="openModal(3)">
-            <img src="KOMPAS - Замер-1-1.jpg" alt="Обмерный план помещения под игровой клуб" loading="lazy">
+            <img src="KOMPAS - Замер-1-1.jpg" alt="Обмерный план помещения под игровой клуб" loading="lazy" width="400" height="250">
             <div class="portfolio-info"><strong>Игровой клуб</strong><p>Полный обмер • 5 листов</p></div>
           </article>
           <article class="portfolio-item" onclick="openModal(4)">
-            <img src="ЖК Знак ванны.jpg" alt="Обмерный план двух ванных комнат" loading="lazy" class="fit-contain">
+            <img src="ЖК Знак ванны.jpg" alt="Обмерный план двух ванных комнат" loading="lazy" width="400" height="250" class="fit-contain">
             <div class="portfolio-info"><strong>Две ванные комнаты</strong><p>Подготовка к ремонту</p></div>
           </article>
           <article class="portfolio-item" onclick="openModal(5)">
-            <img src="Ванная комната.jpg" alt="Обмерный план ванной комнаты" loading="lazy" class="fit-contain">
+            <img src="Ванная комната.jpg" alt="Обмерный план ванной комнаты" loading="lazy" width="400" height="250" class="fit-contain">
             <div class="portfolio-info"><strong>Ванная комната</strong><p>Подготовка к ремонту</p></div>
           </article>
         </div>
@@ -348,7 +383,7 @@
         </div>
         <div class="contactbox">
           <div class="eyebrow">Идеально для</div>
-          <h2 style="font-size:30px">Ремонта без сюрпризов</h2>
+          <h2 style="font-size:28px">Ремонта без сюрпризов</h2>
           <p class="sub">Квартира · Дом · Офис<br><br>Обмерочный план — для дизайнера, прораба или самостоятельного ремонта.</p>
         </div>
       </div>
@@ -366,7 +401,7 @@
     <span class="modal-close" onclick="closeModal()">&times;</span>
     <div class="modal-counter" id="modalCounter">1 / 3</div>
     <button class="modal-nav modal-prev" id="prevBtn" onclick="changeImage(-1)">❮</button>
-    <img class="modal-content" id="modalImage" alt="Увеличенное изображение">
+    <img class="modal-content" id="modalImage" alt="Увеличенное изображение" loading="lazy">
     <button class="modal-nav modal-next" id="nextBtn" onclick="changeImage(1)">❯</button>
     <div class="modal-caption" id="modalCaption"></div>
   </div>
@@ -449,8 +484,6 @@
       const phone = document.getElementById('phone').value.trim();
       const message = document.getElementById('message').value.trim();
       
-      console.log('📤 Отправка заявки...');
-      
       fetch('https://formspree.io/f/xbgjdypq', {
         method: 'POST',
         headers: {
@@ -464,12 +497,8 @@
           _subject: `🔔 Новая заявка с сайта от ${name}`
         })
       })
-      .then(response => {
-        console.log('📡 Статус:', response.status);
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
-        console.log('📥 Ответ:', data);
         if (data.ok) {
           alert(`✅ Спасибо, ${name}! Я получил вашу заявку и скоро свяжусь с вами.`);
           event.target.reset();
@@ -477,8 +506,7 @@
           alert('❌ Ошибка отправки. Позвоните: 8 999 228-01-57');
         }
       })
-      .catch(error => {
-        console.error('❌ Ошибка:', error);
+      .catch(() => {
         alert('❌ Ошибка сети. Позвоните: 8 999 228-01-57');
       });
     }
